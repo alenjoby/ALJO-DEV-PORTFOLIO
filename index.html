@@ -63,6 +63,24 @@
       });
     });
 
+    // Reset all main content elements to visible and hide overlay
+    document.addEventListener('DOMContentLoaded', function() {
+      [
+        '.header', '.hero', '.empty', '.feature-accordion', '.bio', '.contact', '.footer', '.logo', '.picture'
+      ].forEach(sel => {
+        var el = document.querySelector(sel);
+        if (el) {
+          el.style.opacity = '';
+          el.style.transform = '';
+        }
+      });
+      var overlay = document.getElementById('intro-overlay');
+      if (overlay) {
+        overlay.style.display = 'none';
+        overlay.style.opacity = '0';
+      }
+    });
+
     /*
     // GSAP entrance animation (FULLY REVISED)
     window.addEventListener('load', () => { // Use 'load' to ensure all images/spline models are loaded
