@@ -63,25 +63,6 @@
       });
     });
 
-    // Reset all main content elements to visible and hide overlay
-    document.addEventListener('DOMContentLoaded', function() {
-      [
-        '.header', '.hero', '.empty', '.feature-accordion', '.bio', '.contact', '.footer', '.logo', '.picture'
-      ].forEach(sel => {
-        var el = document.querySelector(sel);
-        if (el) {
-          el.style.opacity = '';
-          el.style.transform = '';
-        }
-      });
-      var overlay = document.getElementById('intro-overlay');
-      if (overlay) {
-        overlay.style.display = 'none';
-        overlay.style.opacity = '0';
-      }
-    });
-
-    /*
     // GSAP entrance animation (FULLY REVISED)
     window.addEventListener('load', () => { // Use 'load' to ensure all images/spline models are loaded
         const logo = document.querySelector('.logo');
@@ -246,102 +227,90 @@
                   duration: 0.7,
                   ease: 'back.out(1.7)'
               }, ">-0.2"); // Start slightly before previous tween ends
-          }); // End requestAnimationFrame
-      }); // End window.addEventListener('load')
-      */
-    </script>
-</head>
-<body>
-  <div id="intro-overlay"></div>
-  <div class="custom-cursor"></div>
-  <div class="grid-container">
-    <div class="header">
-      <div class="logo">ALEN <span>JOBY</span></div>
-    </div>
-
-    <div class="hero">
-      <img src="/Images/linecomputer.png">
-      <h1>
-        Where Code Becomes Canvas<br />
-        <em>Design, Data & Imagination</em><br />
-        <strong>In Every Pixel</strong>
-      </h1>
-    </div>
-
-    <div class="picture">
-      <img src="/Images/child.png" alt="Profile Picture" id="profile-pic" />
-    </div>
-
-    <div class="empty">
+        }); // End requestAnimationFrame
+    }); // End window.addEventListener('load')
+  </script>
+  <body>
+    <div id="intro-overlay"></div>
+    <div class="custom-cursor"></div>
+    <div class="grid-container">
+      <div class="header">
+        <div class="logo">ALEN <span>JOBY</span></div>
+      </div>
+      <div class="hero">
+        <img src="/Images/linecomputer.png">
+        <h1>
+          Where Code Becomes Canvas<br />
+          <em>Design, Data & Imagination</em><br />
+          <strong>In Every Pixel</strong>
+        </h1>
+      </div>
+      <div class="picture">
+        <img src="/Images/child.png" alt="Profile Picture" id="profile-pic" />
+      </div>
+      <div class="empty">
         <spline-viewer url="https://prod.spline.design/mlF55nKu27ISIgiu/scene.splinecode"></spline-viewer>
-    </div>
-
-    <div class="feature-accordion">
-      <h2 class="accordion-main-title">Featured Projects</h2>
-      <div class="feature-accordion-inner">
-        <div class="accordion-item active">
-          <div class="accordion-title">Websites
-            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+      </div>
+      <div class="feature-accordion">
+        <h2 class="accordion-main-title">Featured Projects</h2>
+        <div class="feature-accordion-inner">
+          <div class="accordion-item active">
+            <div class="accordion-title">Websites
+              <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+            </div>
+            <div class="accordion-content">
+              <img src="Images/project1.png" alt="Websites Image" />
+            </div>
           </div>
-          <div class="accordion-content">
-            <img src="Images/project1.png" alt="Websites Image" />
+          <div class="accordion-item">
+            <div class="accordion-title">Smartphone Apps
+              <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+            </div>
+            <div class="accordion-content">
+              <img src="Images/project1.png" alt="Smartphone Apps Image" />
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-title">Graphic Designs
+              <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+            </div>
+            <div class="accordion-content">
+              <img src="Images/project1.png" alt="Graphic Designs Image" />
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-title">Games
+              <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+            </div>
+            <div class="accordion-content">
+              <img src="Images/project1.png" alt="Games Image" />
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-title">Certificates
+              <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+            </div>
+            <div class="accordion-content">
+              <img src="Images/project1.png" alt="Certificates Image" />
+            </div>
           </div>
         </div>
-        <div class="accordion-item">
-          <div class="accordion-title">Smartphone Apps
-            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
-          </div>
-          <div class="accordion-content">
-            <img src="Images/project1.png" alt="Smartphone Apps Image" />
-          </div>
-        </div>
-        <div class="accordion-item">
-          <div class="accordion-title">Graphic Designs
-            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
-          </div>
-          <div class="accordion-content">
-            <img src="Images/project1.png" alt="Graphic Designs Image" />
-          </div>
-        </div>
-        <div class="accordion-item">
-          <div class="accordion-title">Games
-            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
-          </div>
-          <div class="accordion-content">
-            <img src="Images/project1.png" alt="Games Image" />
-          </div>
-        </div>
-        <div class="accordion-item">
-          <div class="accordion-title">Certificates
-            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
-          </div>
-          <div class="accordion-content">
-            <img src="Images/project1.png" alt="Certificates Image" />
-          </div>
-        </div>
-
+      </div>
+      <div class="bio">
+        <p>
+          I'm Alen Joby — a creative technologist who brings ideas to life through code and design. With a background in web and app development, I craft smooth, responsive digital experiences that blend function and aesthetics. I also explore graphic design and photo editing to create visuals that connect and inspire. Whether it’s building apps, brands, or visual stories, I focus on detail, emotion, and originality — aiming to make things that look sharp, work flawlessly, and leave a lasting impression.
+        </p>
+      </div>
+      <div class="contact">
+        <small>Have some questions?</small>
+        <h2>Contact me</h2>
+      </div>
+      <div class="footer">
+        <a href="#"><i class="fab fa-instagram"></i> INSTAGRAM</a>
+        <a href="#"><i class="fab fa-github"></i> GITHUB</a>
+        <a href="#"><i class="fab fa-linkedin"></i> LINKEDIN</a>
+        <a href="#"><i class="fab fa-youtube"></i> YOUTUBE</a>
       </div>
     </div>
-
-    <div class="bio">
-      <p>
-        I'm Alen Joby — a creative technologist who brings ideas to life through code and design. With a background in web and app development, I craft smooth, responsive digital experiences that blend function and aesthetics. I also explore graphic design and photo editing to create visuals that connect and inspire. Whether it’s building apps, brands, or visual stories, I focus on detail, emotion, and originality — aiming to make things that look sharp, work flawlessly, and leave a lasting impression.
-      </p>
-    </div>
-
-    <div class="contact">
-      <small>Have some questions?</small>
-      <h2>Contact me</h2>
-    </div>
-
-    <div class="footer">
-      <a href="#"><i class="fab fa-instagram"></i> INSTAGRAM</a>
-      <a href="#"><i class="fab fa-github"></i> GITHUB</a>
-      <a href="#"><i class="fab fa-linkedin"></i> LINKEDIN</a>
-      <a href="#"><i class="fab fa-youtube"></i> YOUTUBE</a>
-    </div>
-
-
-  </div>
-</body>
+  </body>
 </html>
