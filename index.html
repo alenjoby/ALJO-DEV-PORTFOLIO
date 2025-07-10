@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alen Joby Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.22/build/spline-viewer.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    // Custom Cursor Script - Attached to document.body
+    document.addEventListener('DOMContentLoaded', () => {
+      const customCursor = document.querySelector('.custom-cursor');
+      if (customCursor) {
+        document.body.addEventListener('mousemove', (e) => {
+          gsap.to(customCursor, {
+            x: e.clientX,
+            y: e.clientY,
+            duration: 0.1,
+            ease: 'power2.out'
+          });
+        });
+      }
+    });
+
+    // Accordion script (existing, kept as is)
+    document.addEventListener('DOMContentLoaded', function() {
+      const items = document.querySelectorAll('.accordion-item');
+      items.forEach((item, idx) => {
+        const title = item.querySelector('.accordion-title');
+        title.addEventListener('click', () => {
+          if (item.classList.contains('active')) return;
+          // Close all
+          items.forEach((it, i) => {
+            if (it.classList.contains('active')) {
+              const content = it.querySelector('.accordion-content');
+              gsap.to(content, {height: 0, opacity: 0, duration: 0.4, onComplete: () => {
+                it.classList.remove('active');
+                content.style.display = 'none';
+                content.style.height = '';
+              }});
+            }
+          });
+          // Open clicked
+          const content = item.querySelector('.accordion-content');
+          content.style.display = 'block';
+          content.style.height = 'auto';
+          const h = content.offsetHeight;
+          content.style.height = '0px';
+          gsap.to(content, {height: h, opacity: 1, duration: 0.5, onStart: () => {
+            item.classList.add('active');
+          }, onComplete: () => {
+            content.style.height = '';
+          }});
+        });
+        // Set initial state
+        const content = item.querySelector('.accordion-content');
+        if (!item.classList.contains('active')) {
+          content.style.display = 'none';
+          content.style.height = '';
+        }
+      });
+    });
+
+    // GSAP entrance animation (FULLY REVISED)
+    window.addEventListener('load', () => { // Use 'load' to ensure all images/spline models are loaded
+        const logo = document.querySelector('.logo');
+        const picture = document.querySelector('.picture');
+        const header = document.querySelector('.header');
+        const overlay = document.getElementById('intro-overlay');
+        const mainContentElements = [
+            header, // Include header here for initial hiding and y-transform
+            '.hero',
+            '.empty',
+            '.feature-accordion',
+            '.bio',
+            '.contact',
+            '.footer'
+        ];
+
+        // --- Step 1: Pre-Animation Setup ---
+        // Hide all major layout elements and set their initial Y-transform for slide-up
+        gsap.set(mainContentElements, { opacity: 0, y: 20 });
+        // Set logo and picture to be invisible but ready for their fixed-position animation
+        gsap.set([logo, picture], { opacity: 0 });
+
+        // Overlay starts visible and blocks events
+        gsap.set(overlay, { opacity: 1, display: 'block', pointerEvents: 'all' });
+
+        // --- Step 2: Calculate Final Grid Positions ---
+        // This is the CRUCIAL part for accurate animation
+        let finalLogoRect, finalPictureRect;
+
+        // Temporarily reveal elements and hide overlay to get precise, final grid positions
+        // We use a 0ms timeout to ensure the browser has computed layout after initial CSS applies
+        requestAnimationFrame(() => { // Using rAF for better timing
+            // Temporarily hide overlay to unblock the layout calculations and allow cursor
+            gsap.set(overlay, { display: 'none', pointerEvents: 'none' });
+
+            // Temporarily show all elements and reset y transforms to get their natural grid positions
+            gsap.set(mainContentElements, { opacity: 1, y: 0 });
+            gsap.set([logo, picture], { opacity: 1 }); // Also make these visible for measurement
+
+            // Get bounding client rects
+            finalLogoRect = logo.getBoundingClientRect();
+            finalPictureRect = picture.getBoundingClientRect();
+
+            // Revert elements to their hidden pre-animation state
+            gsap.set(mainContentElements, { opacity: 0, y: 20 });
+            gsap.set([logo, picture], { opacity: 0 });
+
+            // Re-show overlay to cover the screen for the animation start
+            gsap.set(overlay, { opacity: 1, display: 'block', pointerEvents: 'all' });
+
+            // --- Step 3: Set Initial Fixed Animation States ---
+            // These are the starting points for the logo and picture
+            gsap.set(logo, {
+                xPercent: -50,
+                yPercent: -50,
+                top: '50%',
+                left: '50%',
+                position: 'fixed',
+                zIndex: 1001,
+                scale: 1.5,
+                opacity: 0 // Will fade in during animation
+            });
+
+            gsap.set(picture, {
+                xPercent: -50,
+                yPercent: -50,
+                top: '50%',
+                left: '50%',
+                position: 'fixed',
+                zIndex: 1000,
+                scale: 1.2,
+                rotation: 20,
+                opacity: 0 // Will fade in during animation
+            });
+
+            // --- Step 4: Build GSAP Animation Timeline ---
+            const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+            tl.addLabel("startIntro")
+              // Animate Logo and Picture to their centered "intro" state
+              .to(logo, {
+                  duration: 1.2,
+                  y: '-=100', // Move logo slightly up from true center
+                  opacity: 1,
+                  scale: 1,
+                  ease: 'power3.out'
+              }, "startIntro+=0.5")
+
+              .to(picture, {
+                  duration: 1.2,
+                  y: '+=100', // Move picture slightly down from true center
+                  opacity: 1,
+                  rotation: 0,
+                  scale: 1,
+                  ease: 'power3.out'
+              }, "<") // Start at the same time as logo
+
+              .addLabel("centeredElements")
+
+              // Animate Logo and Picture to their FINAL grid positions
+              .to(logo, {
+                  duration: 1.0,
+                  // Use precise pixel values from getBoundingClientRect()
+                  x: finalLogoRect.left, // Animate x/y directly
+                  y: finalLogoRect.top,
+                  width: finalLogoRect.width,
+                  height: finalLogoRect.height,
+                  xPercent: 0, yPercent: 0, // Reset % transforms
+                  ease: 'power2.inOut',
+                  onStart: () => {
+                      // Set logo to absolute within its parent (header), but keep fixed for position animation
+                      // This is a subtle point: GSAP internally will handle position change if you don't explicitly set it during tween.
+                      // The onComplete is where we fully hand back to CSS.
+                  },
+                  onComplete: () => {
+                      // CRITICAL: Revert logo's positioning to allow CSS Grid (and header's flexbox) to take over
+                      gsap.set(logo, {
+                          position: '', // Revert to default (static/relative)
+                          top: '', left: '', width: '', height: '', // Clear inline styles
+                          x: '', y: '', zIndex: '' // Clear GSAP transforms
+                      });
+                      // Now that the logo is back in its natural flow, fade in the header it's inside
+                      gsap.to(header, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' });
+                  }
+              }, "centeredElements+=0.7") // Start this move after a short pause
+
+              .to(picture, {
+                  duration: 1.0,
+                  // Use precise pixel values from getBoundingClientRect()
+                  x: finalPictureRect.left, // Animate x/y directly
+                  y: finalPictureRect.top,
+                  width: finalPictureRect.width,
+                  height: finalPictureRect.height,
+                  xPercent: 0, yPercent: 0, // Reset % transforms
+                  ease: 'power2.inOut',
+                  onComplete: () => {
+                      // CRITICAL: Revert picture's positioning
+                      gsap.set(picture, {
+                          position: '', // Revert to default
+                          top: '', left: '', width: '', height: '',
+                          x: '', y: '', zIndex: ''
+                      });
+                  }
+              }, "<") // Start picture's move at the same time as logo's
+
+              // Fade out overlay during the transition to grid positions
+              .to(overlay, {
+                  duration: 0.7,
+                  opacity: 0,
+                  ease: 'power1.out',
+                  onComplete: () => {
+                      overlay.style.display = 'none';
+                      overlay.style.pointerEvents = 'none'; // Ensure no blocking of cursor
+                  }
+              }, "centeredElements+=0.7")
+
+              // Pop in the rest of the elements after logo/picture are in place and overlay is gone
+              .to(mainContentElements.slice(1), { // Exclude header as it's handled above
+                  opacity: 1,
+                  y: 0,
+                  stagger: 0.15,
+                  duration: 0.7,
+                  ease: 'back.out(1.7)'
+              }, ">-0.2"); // Start slightly before previous tween ends
+        }); // End requestAnimationFrame
+    }); // End window.addEventListener('load')
+  </script>
+</head>
+<body>
+  <div id="intro-overlay"></div>
+  <div class="custom-cursor"></div>
+  <div class="grid-container">
+    <div class="header">
+      <div class="logo">ALEN <span>JOBY</span></div>
+    </div>
+
+    <div class="hero">
+      <img src="/Images/linecomputer.png">
+      <h1>
+        Where Code Becomes Canvas<br />
+        <em>Design, Data & Imagination</em><br />
+        <strong>In Every Pixel</strong>
+      </h1>
+    </div>
+
+    <div class="picture">
+      <img src="/Images/child.png" alt="Profile Picture" id="profile-pic" />
+    </div>
+
+    <div class="empty">
+        <spline-viewer url="https://prod.spline.design/mlF55nKu27ISIgiu/scene.splinecode"></spline-viewer>
+    </div>
+
+    <div class="feature-accordion">
+      <h2 class="accordion-main-title">Featured Projects</h2>
+      <div class="feature-accordion-inner">
+        <div class="accordion-item active">
+          <div class="accordion-title">Websites
+            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+          </div>
+          <div class="accordion-content">
+            <img src="Images/project1.png" alt="Websites Image" />
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-title">Smartphone Apps
+            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+          </div>
+          <div class="accordion-content">
+            <img src="Images/project1.png" alt="Smartphone Apps Image" />
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-title">Graphic Designs
+            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+          </div>
+          <div class="accordion-content">
+            <img src="Images/project1.png" alt="Graphic Designs Image" />
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-title">Games
+            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+          </div>
+          <div class="accordion-content">
+            <img src="Images/project1.png" alt="Games Image" />
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-title">Certificates
+            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+          </div>
+          <div class="accordion-content">
+            <img src="Images/project1.png" alt="Certificates Image" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="bio">
+      <p>
+        I'm Alen Joby — a creative technologist who brings ideas to life through code and design. With a background in web and app development, I craft smooth, responsive digital experiences that blend function and aesthetics. I also explore graphic design and photo editing to create visuals that connect and inspire. Whether it’s building apps, brands, or visual stories, I focus on detail, emotion, and originality — aiming to make things that look sharp, work flawlessly, and leave a lasting impression.
+      </p>
+    </div>
+
+    <div class="contact">
+      <small>Have some questions?</small>
+      <h2>Contact me</h2>
+    </div>
+
+    <div class="footer">
+      <a href="#"><i class="fab fa-instagram"></i> INSTAGRAM</a>
+      <a href="#"><i class="fab fa-github"></i> GITHUB</a>
+      <a href="#"><i class="fab fa-linkedin"></i> LINKEDIN</a>
+      <a href="#"><i class="fab fa-youtube"></i> YOUTUBE</a>
+    </div>
+
+
+  </div>
+</body>
+</html>

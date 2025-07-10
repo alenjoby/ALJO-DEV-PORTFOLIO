@@ -1,0 +1,370 @@
+@font-face {
+  font-family: doner;
+  src: url(/fonts/doner.otf);
+}
+
+@font-face {
+  font-family: ditalic;
+  src: url(/fonts/ditalic.otf);
+}
+
+@font-face {
+  font-family: caviar;
+  src: url(/fonts/CaviarDreams.ttf);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: caviar, sans-serif;
+  background-color: #0a0908;
+  color: #fff;
+  padding: 20px;
+  cursor: none; /* Keep this for your custom cursor */
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0px; /* Actual size comes from box-shadow */
+  height: 0px; /* Actual size comes from box-shadow */
+  border-radius: 50%;
+  pointer-events: none; /* ESSENTIAL: Ensures cursor doesn't block clicks */
+  z-index: 9999; /* Ensure it's always on top */
+  background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, rgba(210,180,140,0.18) 60%, rgba(255,255,255,0) 100%);
+  box-shadow: 0 0 32px 16px #d2b48c, 0 0 80px 32px #ffffff;
+  mix-blend-mode: lighten;
+  transition: background 0.2s, box-shadow 0.2s;
+  transform: translate(-50%, -50%); /* Centers the "0x0" element on the cursor tip */
+}
+
+/* --- ESSENTIAL CSS FOR GSAP ANIMATION INITIAL STATES --- */
+#intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  z-index: 10000; /* Ensure it's above everything initially */
+  opacity: 1; /* Starts fully visible */
+  pointer-events: all; /* Starts blocking pointer events */
+  display: block;
+}
+
+/* Hide all major grid elements initially. GSAP will reveal them. */
+/* Their `opacity` and `transform: translateY` will be set by JS on load. */
+.header, .hero, .empty, .feature-accordion, .bio, .contact, .footer {
+  opacity: 0; /* Ensures they are hidden before GSAP takes over */
+  transform: translateY(20px); /* Initial offset for the slide-up effect */
+}
+
+/* Logo and Picture will have their initial fixed positions and transforms set by GSAP in JS */
+/* They only need their final grid-area definition here. */
+.logo {
+  /* No specific initial CSS for animation here. GSAP will override. */
+  /* Keep its styling as per your design for its final state */
+}
+
+.picture {
+  grid-area: picture; /* Defines its final grid position */
+  background-color: #22333b;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 100%;
+}
+/* --- END ESSENTIAL CSS FOR GSAP ANIMATION --- */
+
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "header   header    header    header"
+    "hero     hero      empty     feature-accordion"
+    "bio      bio       picture   feature-accordion"
+    "contact  contact   footer    feature-accordion";
+  grid-template-columns: 1fr 1fr 1fr 2fr;
+  grid-template-rows: auto 1fr auto auto;
+  gap: 20px;
+  padding: 20px;
+  height: 100vh;
+  min-height: 0;
+  background-color: #0a0908;
+}
+
+/* Header */
+.header {
+  grid-area: header;
+  font-family: doner;
+  background-color: #22333b;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #d2b48c;
+  display: flex;
+}
+
+.logo span {
+  font-weight: 300;
+  font-family: ditalic;
+  font-style: italic;
+}
+
+.header nav a {
+  margin-left: 20px;
+  color: #d2b48c;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* Hero */
+.hero {
+  grid-area: hero;
+  background-color: #22333b;
+  border-radius: 12px;
+  padding: 2rem;
+  font-size: 0.9rem;
+  font-family: doner;
+  line-height: 1.8;
+  color: #d2b48c;
+}
+
+.hero img {
+  margin-left: 80%;
+  width: 20%;
+  height: auto;
+  margin-bottom: -50px;
+}
+
+.hero h1 {
+  margin-top: 15%;
+  font-size: 1.4rem;
+}
+
+.hero em {
+  font-style: italic;
+  font-size: 1.6rem;
+  color: #ccc;
+}
+
+.hero strong {
+  font-weight: bold;
+  color: #f2d6ae;
+  font-size: 1.8rem;
+}
+
+/* Picture - Image inside */
+.picture img {
+  width: 60%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Empty */
+.empty {
+  grid-area: empty;
+  background-color: #22333b;
+  padding-top: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Contact */
+.contact {
+  grid-area: contact;
+  background-color: #d2b48c;
+  font-family: caviar;
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contact small {
+  font-size: 1rem;
+}
+
+.contact h2 {
+  font-size: 2rem;
+  margin-top: 0.5rem;
+}
+
+/* Bio */
+.bio {
+  grid-area: bio;
+  background-color: #22333b;
+  border-radius: 12px;
+  padding: 1rem;
+  font-size: 0.98rem;
+  word-spacing: 0.2rem;
+  color: #ccc;
+}
+
+/* Footer */
+.footer {
+  grid-area: footer;
+  background-color: #22333b;
+  border-radius: 12px;
+  padding: 3rem;
+  display: flex;
+}
+
+.footer a {
+  margin: 0 auto;
+  color: #d2b48c;
+  text-decoration: none;
+  font-size: .8rem;
+  text-align: center;
+  padding: .3rem;
+}
+
+/* Feature Accordion */
+.feature-accordion {
+  grid-area: feature-accordion;
+  background: #22333b;
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.feature-accordion-inner {
+  max-height: auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-right: 6px;
+}
+
+/* Scrollbar Styling (Optional for WebKit) */
+.feature-accordion-inner::-webkit-scrollbar {
+  width: 6px;
+}
+.feature-accordion-inner::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 6px;
+}
+
+/* Accordion Item */
+.accordion-item {
+  background: none;
+  border-radius: 18px;
+  overflow: hidden;
+  border: none;
+}
+
+.accordion-title {
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 18px 16px;
+  cursor: pointer;
+  background: none;
+  border-bottom: none;
+  border-top: 1px solid #fff;
+  color: #e2d1ba;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.accordion-link {
+  margin-left: 16px;
+  color: #d2b48c;
+  text-decoration: none;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.accordion-link:hover .accordion-icon {
+  color: #fff;
+}
+
+.accordion-icon {
+  margin: 0;
+  font-size: 0.85em;
+  color: inherit;
+  transition: color 0.2s;
+}
+
+.accordion-item:first-child .accordion-title {
+  border-top: none;
+}
+
+.accordion-title:last-child {
+  border-bottom: none;
+}
+
+.accordion-item.active .accordion-title {
+  background: #22333b;
+}
+
+.accordion-content {
+  padding: 0 0 18px 0;
+  overflow: hidden;
+}
+
+.accordion-content img {
+  width: 80%;
+  height: 100%;
+  border-radius: 5px;
+  display: block;
+  margin: 0 auto 0 auto;
+  object-fit: cover;
+  background: #222;
+}
+
+.accordion-item:not(.active) .accordion-content {
+  display: none;
+}
+
+.accordion-main-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  font-family: caviar;
+  color: #d2b48c;
+  margin-bottom: 18px;
+  text-align: left;
+  letter-spacing: 1px;
+}
+
+.accordion-img-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  margin-left: 0;
+  display: inline-block;
+  vertical-align: middle;
+  filter: brightness(1.2);
+  transition: filter 0.2s, transform 0.25s cubic-bezier(.77,0,.18,1);
+}
+
+.accordion-link:hover .accordion-img-icon {
+  filter: brightness(2);
+  transform: scale(1.25) rotate(-8deg);
+}
