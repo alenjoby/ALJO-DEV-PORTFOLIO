@@ -43,7 +43,6 @@ body {
   transform: translate(-50%, -50%); /* Centers the "0x0" element on the cursor tip */
 }
 
-/*
 #intro-overlay {
   position: fixed;
   top: 0;
@@ -57,7 +56,6 @@ body {
   transition: opacity 0.5s;
   display: none;
 }
-*/
 
 /* Hide all major grid elements initially. GSAP will reveal them. */
 /* Their `opacity` and `transform: translateY` will be set by JS on load. */
