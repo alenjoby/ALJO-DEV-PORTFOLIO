@@ -24,7 +24,7 @@ body {
   background-color: #0a0908;
   color: #fff;
   padding: 20px;
-  cursor: none; /* Keep this for your custom cursor */
+  cursor: none; /* Hide default cursor */
 }
 
 .custom-cursor {
@@ -34,45 +34,91 @@ body {
   width: 0px; /* Actual size comes from box-shadow */
   height: 0px; /* Actual size comes from box-shadow */
   border-radius: 50%;
-  pointer-events: none; /* ESSENTIAL: Ensures cursor doesn't block clicks */
-  z-index: 9999; /* Ensure it's always on top */
+  pointer-events: none;
+  z-index: 100000; /* Above everything, including loading overlay */
   background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, rgba(210,180,140,0.18) 60%, rgba(255,255,255,0) 100%);
   box-shadow: 0 0 32px 16px #d2b48c, 0 0 80px 32px #ffffff;
   mix-blend-mode: lighten;
   transition: background 0.2s, box-shadow 0.2s;
-  transform: translate(-50%, -50%); /* Centers the "0x0" element on the cursor tip */
+  transform: translate(-50%, -50%);
+  display: block;
 }
 
 #intro-overlay {
+  display: none; /* Hide overlay since animation is removed */
+}
+
+#loading-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #000;
-  z-index: 10000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s;
-  display: none;
+  z-index: 99999;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw; height: 100vh;
+  background: radial-gradient(ellipse at center, #1a1816 0%, #0a0908 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s;
+}
+#loading-overlay .logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #d2b48c;
+  font-family: doner, sans-serif;
+  margin-bottom: 32px;
+  text-align: center;
+}
+#loading-overlay .logo span {
+  font-weight: 300;
+  font-family: ditalic;
+  font-style: italic;
+}
+#loading-overlay .picture {
+  background: #22333b;
+  border-radius: 16px;
+  height: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 40px;
+  /* White smooth glow */
+  box-shadow: 0 0 32px 8px rgba(255,255,255,0.35), 0 0 0 0 #d2b48c;
+}
+#loading-overlay .picture img {
+  width: 220px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
-/* Hide all major grid elements initially. GSAP will reveal them. */
-/* Their `opacity` and `transform: translateY` will be set by JS on load. */
+#loading-overlay .logo,
+#loading-overlay .picture {
+  box-shadow: 0 4px 32px 0 #0008, 0 0 0 0 #d2b48c;
+  filter: blur(0) brightness(1);
+  transition:
+    box-shadow 0.3s,
+    filter 0.3s,
+    transform 0.7s cubic-bezier(0.77,0,0.18,1),
+    opacity 0.3s;
+}
+
+#loading-overlay.popout .logo,
+#loading-overlay.popout .picture {
+  box-shadow: 0 8px 64px 8px #d2b48c88, 0 0 0 0 #0000;
+  filter: blur(4px) brightness(1.2);
+}
+
 .header, .hero, .empty, .feature-accordion, .bio, .contact, .footer {
-  opacity: 0; /* Ensures they are hidden before GSAP takes over */
-  transform: translateY(20px); /* Initial offset for the slide-up effect */
+  opacity: 1;
+  transform: none;
 }
 
-/* Logo and Picture will have their initial fixed positions and transforms set by GSAP in JS */
-/* They only need their final grid-area definition here. */
 .logo {
-  /* No specific initial CSS for animation here. GSAP will override. */
-  /* Keep its styling as per your design for its final state */
+  /* No animation styles */
 }
 
 .picture {
-  grid-area: picture; /* Defines its final grid position */
+  grid-area: picture;
   background-color: #22333b;
   border-radius: 12px;
   display: flex;
@@ -81,8 +127,6 @@ body {
   overflow: hidden;
   height: 100%;
 }
-/* --- END ESSENTIAL CSS FOR GSAP ANIMATION --- */
-
 
 .grid-container {
   display: grid;
@@ -100,7 +144,6 @@ body {
   background-color: #0a0908;
 }
 
-/* Header */
 .header {
   grid-area: header;
   font-family: doner;
@@ -132,7 +175,6 @@ body {
   font-size: 0.9rem;
 }
 
-/* Hero */
 .hero {
   grid-area: hero;
   background-color: #22333b;
@@ -168,14 +210,12 @@ body {
   font-size: 1.8rem;
 }
 
-/* Picture - Image inside */
 .picture img {
   width: 60%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Empty */
 .empty {
   grid-area: empty;
   background-color: #22333b;
@@ -186,7 +226,6 @@ body {
   justify-content: center;
 }
 
-/* Contact */
 .contact {
   grid-area: contact;
   background-color: #d2b48c;
@@ -208,7 +247,6 @@ body {
   margin-top: 0.5rem;
 }
 
-/* Bio */
 .bio {
   grid-area: bio;
   background-color: #22333b;
@@ -219,7 +257,6 @@ body {
   color: #ccc;
 }
 
-/* Footer */
 .footer {
   grid-area: footer;
   background-color: #22333b;
@@ -237,7 +274,6 @@ body {
   padding: .3rem;
 }
 
-/* Feature Accordion */
 .feature-accordion {
   grid-area: feature-accordion;
   background: #22333b;
@@ -248,15 +284,6 @@ body {
   height: 100%;
   min-height: 0;
   overflow: hidden;
-}
-
-.feature-accordion-inner {
-  max-height: auto;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding-right: 6px;
 }
 
 /* Scrollbar Styling (Optional for WebKit) */
