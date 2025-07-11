@@ -76,7 +76,7 @@ body {
 #loading-overlay .picture {
   background: #22333b;
   border-radius: 16px;
-  height: 40%;
+  height: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -179,7 +179,7 @@ body {
   background-color: #22333b;
   border-radius: 12px;
   padding: 2rem;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-family: doner;
   line-height: 1.8;
   color: #d2b48c;
@@ -194,7 +194,7 @@ body {
 
 .hero h1 {
   margin-top: 15%;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .hero em {
@@ -251,23 +251,16 @@ body {
   align-items: center;
   background: #d2b48c;
   color: #22333b;
-  padding: 1em 2.2em;
   border-radius: 12px;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-family: doner, sans-serif;
   font-weight: bold;
   text-decoration: none;
   margin-top: 1.2em;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 12px 0 #0002;
-  border: none;
   cursor: pointer;
 }
-.contact-mail-btn:hover {
-  background: #22333b;
-  color: #d2b48c;
-  box-shadow: 0 4px 24px 0 #d2b48c44;
-}
+
 .contact-mail-btn .accordion-img-icon {
   margin-left: 12px;
   width: 28px;
