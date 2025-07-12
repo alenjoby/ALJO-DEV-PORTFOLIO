@@ -107,9 +107,51 @@ body {
   filter: blur(4px) brightness(1.2);
 }
 
+/* Animation classes for grid sections */
 .header, .hero, .empty, .feature-accordion, .bio, .contact, .footer {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.header.animate-in, .hero.animate-in, .empty.animate-in, 
+.feature-accordion.animate-in, .bio.animate-in, .contact.animate-in, .footer.animate-in {
   opacity: 1;
-  transform: none;
+  transform: translateY(0);
+}
+
+/* Typing animation for logo */
+.logo {
+  overflow: hidden;
+  position: relative;
+}
+
+.logo.typing {
+  animation: revealText 2s ease-in-out;
+}
+
+.logo.typing span {
+  animation: revealTextSpan 1.5s ease-in-out;
+  animation-delay: 1s;
+}
+
+@keyframes revealText {
+  0% { 
+    clip-path: inset(0 100% 0 0);
+  }
+  100% { 
+    clip-path: inset(0 -5% 0 0);
+  }
+}
+
+@keyframes revealTextSpan {
+  0% { 
+    clip-path: inset(0 100% 0 0);
+  }
+  100% { 
+    clip-path: inset(0 -5% 0 0);
+  }
 }
 
 .logo {

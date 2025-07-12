@@ -141,9 +141,47 @@
           overlay.style.display = 'none';
           document.querySelector('.grid-container').style.visibility = 'visible';
           overlay.classList.remove('popout');
+          
+          // Start sequential animations
+          startSequentialAnimations();
         }, 350);
       }, 3200);
     });
+
+    function startSequentialAnimations() {
+      const sections = [
+        '.header',
+        '.hero', 
+        '.empty',
+        '.feature-accordion',
+        '.bio',
+        '.contact',
+        '.footer'
+      ];
+      
+      const delays = [0, 200, 400, 600, 800, 1000, 1200]; // 200ms between each section
+      
+      sections.forEach((section, index) => {
+        setTimeout(() => {
+          const element = document.querySelector(section);
+          if (element) {
+            element.classList.add('animate-in');
+            
+            // Add typing animation to header logo
+            if (section === '.header') {
+              const headerLogo = element.querySelector('.logo');
+              if (headerLogo) {
+                headerLogo.classList.add('typing');
+                // Remove typing animation after 3 seconds
+                setTimeout(() => {
+                  headerLogo.classList.remove('typing');
+                }, 3000);
+              }
+            }
+          }
+        }, delays[index]);
+      });
+    }
   </script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
