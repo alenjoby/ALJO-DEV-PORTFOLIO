@@ -123,7 +123,6 @@ body {
 
 /* Typing animation for logo */
 .logo {
-  overflow: hidden;
   position: relative;
 }
 
