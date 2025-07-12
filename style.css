@@ -457,3 +457,110 @@ body {
   filter: brightness(2);
   transform: scale(1.25) rotate(-8deg);
 }
+
+/* Responsive Design: Small and Medium Phones */
+@media (max-width: 900px) {
+  .grid-container {
+    grid-template-areas:
+      "header"
+      "hero"
+      "picture"
+      "feature-accordion"
+      "bio"
+      "contact"
+      "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(7, auto);
+    gap: 16px;
+    padding: 10px;
+    height: auto;
+  }
+  .header, .hero, .empty, .feature-accordion, .bio, .contact, .footer, .picture {
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  .hero img {
+    margin-left: 0;
+    width: 40%;
+    margin-bottom: 0;
+    display: block;
+    margin: 0 auto 10px auto;
+  }
+  .feature-accordion {
+    height: auto;
+    min-height: unset;
+    padding: 1rem 0.5rem;
+  }
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0.5rem;
+  }
+  .footer a {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+  }
+  .picture img {
+    width: 80vw;
+    height: auto;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+  }
+  .empty {
+    padding-top: 20px;
+  }
+  .contact-mail-btn {
+    font-size: 1.1rem;
+    padding: 0.7em 1.2em;
+  }
+  .accordion-title {
+    font-size: 1.2rem;
+    padding: 12px 8px;
+  }
+  .accordion-main-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 5px;
+  }
+  .header, .hero, .empty, .feature-accordion, .bio, .contact, .footer, .picture {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+  .logo {
+    font-size: 1.2rem;
+  }
+  .hero h1 {
+    font-size: 1rem;
+    margin-top: 10%;
+  }
+  .hero em {
+    font-size: 1.1rem;
+  }
+  .hero strong {
+    font-size: 1.2rem;
+  }
+  .picture img {
+    max-width: 180px;
+    width: 70vw;
+  }
+  .footer {
+    padding: 1rem 0.2rem;
+  }
+  .contact-mail-btn {
+    font-size: 1rem;
+    padding: 0.5em 1em;
+  }
+  .accordion-title {
+    font-size: 1rem;
+    padding: 10px 6px;
+  }
+  .accordion-main-title {
+    font-size: 1rem;
+  }
+}
