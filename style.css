@@ -64,6 +64,16 @@ body {
   display: block;
 }
 
+/* Hide custom cursor on mobile and tablet devices */
+@media (max-width: 1023px) {
+  .custom-cursor {
+    display: none !important;
+  }
+  body {
+    cursor: auto; /* Show default cursor on mobile/tablet */
+  }
+}
+
 #intro-overlay {
   display: none; /* Hide overlay since animation is removed */
 }
@@ -251,6 +261,22 @@ body {
   width: 20%;
   height: auto;
   margin-bottom: -50px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.hero img.blink {
+  animation: blinkEffect 2s ease-in-out infinite;
+}
+
+@keyframes blinkEffect {
+  0%, 100% { 
+    opacity: 1; 
+    filter: brightness(1);
+  }
+  50% { 
+    opacity: 0.3; 
+    filter: brightness(1.5);
+  }
 }
 
 .hero h1 {
@@ -593,5 +619,113 @@ body {
   }
   .footer a {
     font-size: 0.85rem;
+  }
+}
+
+/* Tablet Styles (768px and above) */
+@media (min-width: 768px) {
+  .grid-container {
+    gap: 24px;
+    padding: 24px;
+  }
+  .header {
+    padding: 1.5rem 2.5rem;
+  }
+  .logo {
+    font-size: 2.2rem;
+  }
+  .hero {
+    padding: 2.5rem;
+    font-size: 0.9rem;
+  }
+  .hero h1 {
+    font-size: 1.3rem;
+  }
+  .hero em {
+    font-size: 1.7rem;
+  }
+  .hero strong {
+    font-size: 1.9rem;
+  }
+  .bio {
+    padding: 1.5rem;
+    font-size: 1.05rem;
+  }
+  .contact {
+    padding: 2rem;
+  }
+  .contact-mail-btn {
+    font-size: 1.6rem;
+  }
+  .footer {
+    padding: 3.5rem;
+  }
+  .footer a {
+    font-size: 0.9rem;
+  }
+  .feature-accordion {
+    padding: 1.5rem;
+  }
+  .accordion-title {
+    font-size: 2.2rem;
+    padding: 20px 18px;
+  }
+  .accordion-main-title {
+    font-size: 2rem;
+  }
+}
+
+/* Large Screen Styles (1950px and above) */
+@media (min-width: 1950px) {
+  .grid-container {
+    gap: 32px;
+    padding: 32px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+  .header {
+    padding: 2rem 3.5rem;
+  }
+  .logo {
+    font-size: 2.6rem;
+  }
+  .hero {
+    padding: 3.5rem;
+    font-size: 1.1rem;
+  }
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+  .hero em {
+    font-size: 1.9rem;
+  }
+  .hero strong {
+    font-size: 2.1rem;
+  }
+  .bio {
+    padding: 2.5rem;
+    font-size: 1.15rem;
+  }
+  .contact {
+    padding: 3rem;
+  }
+  .contact-mail-btn {
+    font-size: 1.8rem;
+  }
+  .footer {
+    padding: 4.5rem;
+  }
+  .footer a {
+    font-size: 1.1rem;
+  }
+  .feature-accordion {
+    padding: 2.5rem;
+  }
+  .accordion-title {
+    font-size: 2.6rem;
+    padding: 24px 22px;
+  }
+  .accordion-main-title {
+    font-size: 2.4rem;
   }
 }

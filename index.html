@@ -177,6 +177,16 @@
                 }, 3000);
               }
             }
+            
+            // Add blinking effect to linecomputer image after hero appears
+            if (section === '.hero') {
+              setTimeout(() => {
+                const linecomputerImg = element.querySelector('img');
+                if (linecomputerImg) {
+                  linecomputerImg.classList.add('blink');
+                }
+              }, 500); // Start blinking 500ms after hero appears
+            }
           }
         }, delays[index]);
       });
