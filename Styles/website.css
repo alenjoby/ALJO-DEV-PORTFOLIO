@@ -1,16 +1,16 @@
 @font-face {
   font-family: doner;
-  src: url(/fonts/doner.otf);
+  src: url(../fonts/doner.otf);
 }
 
 @font-face {
   font-family: ditalic;
-  src: url(/fonts/ditalic.otf);
+  src: url(../fonts/ditalic.otf);
 }
 
 @font-face {
   font-family: caviar;
-  src: url(/fonts/CaviarDreams.ttf);
+  src: url(../fonts/CaviarDreams.ttf);
 }
 
 * {
@@ -138,21 +138,22 @@ body {
 }
 
 /* Animation classes for grid sections */
-.header, .hero, .empty, .feature-accordion, .bio, .contact, .footer {
+.header, .websites-hero, .empty, .website-project-ecommerce, .website-project-portfolio, .website-project-dashboard, .website-project-blog, .website-project-landing, .websites-bio, .contact, .footer {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
               transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.header.animate-in, .hero.animate-in, .empty.animate-in, 
-.feature-accordion.animate-in, .bio.animate-in, .contact.animate-in, .footer.animate-in {
+.header.animate-in, .websites-hero.animate-in, .empty.animate-in, 
+.website-project-ecommerce.animate-in, .website-project-portfolio.animate-in, .website-project-dashboard.animate-in, .website-project-blog.animate-in, .website-project-landing.animate-in, .websites-bio.animate-in, .contact.animate-in, .footer.animate-in {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* Typing animation for logo */
 .logo {
+  overflow: hidden;
   position: relative;
 }
 
@@ -189,29 +190,21 @@ body {
 
 .picture {
   grid-area: picture;
-  background-color: #22333b;
+  background-color: #d2b48c;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow:visible;
+  overflow: visible;
   height: 100%;
+  color: #000;
 }
 
-.grid-container {
-  display: grid;
-  grid-template-areas:
-    "header   header    header    header"
-    "hero     hero      empty     feature-accordion"
-    "bio      bio       picture   feature-accordion"
-    "contact  contact   footer    feature-accordion";
-  grid-template-columns: 1fr 1fr 1fr 2fr;
-  grid-template-rows: auto 1fr auto auto;
-  gap: 20px;
-  padding: 20px;
-  height: 100vh;
-  min-height: 0;
-  background-color: #0a0908;
+.picture img {
+  width: 80%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
 }
 
 .header {
@@ -221,7 +214,7 @@ body {
   padding: 1rem 2rem;
   border-radius: 12px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -238,11 +231,261 @@ body {
   font-style: italic;
 }
 
-.header nav a {
-  margin-left: 20px;
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links a {
   color: #d2b48c;
   text-decoration: none;
+  font-size: 0.8rem;
+  font-family: caviar, sans-serif;
+  transition: color 0.2s, transform 0.2s;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+}
+
+.nav-links a:hover {
+  color: #f2d6ae;
+  transform: translateY(-2px);
+}
+
+.nav-links a.active {
+  color: #f2d6ae;
+  background-color: rgba(210, 180, 140, 0.1);
+  border: 1px solid rgba(210, 180, 140, 0.3);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "header   header    header    header"
+    "contact  contact   footer    footer"
+    "websites-hero empty     website-project-ecommerce website-project-portfolio"
+    "websites-bio picture   website-project-dashboard website-project-blog"
+    "website-project-landing website-project-landing website-project-landing website-project-landing";
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto auto 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  height: 100vh;
+  min-height: 0;
+  background-color: #0a0908;
+}
+
+/* Project sections styling */
+.project-ecommerce,
+.project-portfolio,
+.project-dashboard,
+.project-blog,
+.project-landing {
+  background: #22333b;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(210, 180, 140, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.project-ecommerce {
+  grid-area: project-ecommerce;
+}
+
+.project-portfolio {
+  grid-area: project-portfolio;
+}
+
+.project-dashboard {
+  grid-area: project-dashboard;
+}
+
+.project-blog {
+  grid-area: project-blog;
+}
+
+.project-landing {
+  grid-area: project-landing;
+}
+
+.project-ecommerce:hover,
+.project-portfolio:hover,
+.project-dashboard:hover,
+.project-blog:hover,
+.project-landing:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(210, 180, 140, 0.15);
+  border-color: rgba(210, 180, 140, 0.3);
+}
+
+.project-ecommerce h3,
+.project-portfolio h3,
+.project-dashboard h3,
+.project-blog h3,
+.project-landing h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #d2b48c;
+  margin-bottom: 0.5rem;
+  font-family: doner, sans-serif;
+}
+
+.project-ecommerce p,
+.project-portfolio p,
+.project-dashboard p,
+.project-blog p,
+.project-landing p {
   font-size: 0.9rem;
+  color: #ccc;
+  line-height: 1.5;
+  font-family: caviar, sans-serif;
+  margin-bottom: 1rem;
+}
+
+.project-ecommerce img,
+.project-portfolio img,
+.project-dashboard img,
+.project-blog img,
+.project-landing img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Websites Hero Section */
+.websites-hero {
+  grid-area: websites-hero;
+  background-color: #d2b48c;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 2px solid rgba(210, 180, 140, 0.2);
+  min-height: 200px;
+  color: #000;
+}
+
+.websites-hero img {
+  margin-left: 80%;
+  width: 20%;
+  height: auto;
+  margin-bottom: -50px;
+  transition: opacity 0.3s ease-in-out;
+  filter: grayscale(100%);
+}
+
+.websites-hero img.blink {
+  animation: blinkEffect 2s ease-in-out infinite;
+}
+
+.websites-hero h1 {
+  margin-top: 15%;
+  font-size: 1.3rem;
+  color: #000;
+}
+
+.websites-hero em {
+  font-style: italic;
+  font-size: 1.7rem;
+  color: #333;
+}
+
+.websites-hero strong {
+  font-weight: bold;
+  color: #000;
+  font-size: 1.9rem;
+}
+
+/* Websites Bio Section */
+.websites-bio {
+  grid-area: websites-bio;
+  background-color: #d2b48c;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 2px solid rgba(210, 180, 140, 0.2);
+  min-height: 200px;
+  color: #000;
+}
+
+/* Website Project sections styling */
+.website-project-ecommerce,
+.website-project-portfolio,
+.website-project-dashboard,
+.website-project-blog,
+.website-project-landing {
+  background: #22333b !important;
+  color: #fff !important;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 2px solid rgba(210, 180, 140, 0.2);
+  min-height: 200px;
+}
+
+.website-project-ecommerce {
+  grid-area: website-project-ecommerce;
+}
+
+.website-project-portfolio {
+  grid-area: website-project-portfolio;
+}
+
+.website-project-dashboard {
+  grid-area: website-project-dashboard;
+}
+
+.website-project-blog {
+  grid-area: website-project-blog;
+}
+
+.website-project-landing {
+  grid-area: website-project-landing;
+}
+
+.website-project-ecommerce:hover,
+.website-project-portfolio:hover,
+.website-project-dashboard:hover,
+.website-project-blog:hover,
+.website-project-landing:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(210, 180, 140, 0.15);
+  border-color: rgba(210, 180, 140, 0.5);
+}
+
+.website-project-ecommerce h3,
+.website-project-portfolio h3,
+.website-project-dashboard h3,
+.website-project-blog h3,
+.website-project-landing h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #d2b48c;
+  margin-bottom: 0.5rem;
+  font-family: doner, sans-serif;
+}
+
+.website-project-ecommerce p,
+.website-project-portfolio p,
+.website-project-dashboard p,
+.website-project-blog p,
+.website-project-landing p {
+  font-size: 0.9rem;
+  color: #ccc;
+  line-height: 1.5;
+  font-family: caviar, sans-serif;
+  margin-bottom: 1rem;
+}
+
+.website-project-ecommerce img,
+.website-project-portfolio img,
+.website-project-dashboard img,
+.website-project-blog img,
+.website-project-landing img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .hero {
@@ -262,6 +505,7 @@ body {
   height: auto;
   margin-bottom: -50px;
   transition: opacity 0.3s ease-in-out;
+  filter: grayscale(100%);
 }
 
 .hero img.blink {
@@ -271,11 +515,11 @@ body {
 @keyframes blinkEffect {
   0%, 100% { 
     opacity: 1; 
-    filter: brightness(1);
+    filter: brightness(1) grayscale(100%);
   }
   50% { 
     opacity: 0.3; 
-    filter: brightness(1.5);
+    filter: brightness(1.5) grayscale(100%);
   }
 }
 
@@ -297,32 +541,34 @@ body {
 }
 
 .picture img {
-  width: 80%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(100%);
 }
 
 .empty {
   grid-area: empty;
-  background-color: #22333b;
+  background-color: #d2b48c;
   padding-top: 50px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #000;
 }
 
 .contact {
   grid-area: contact;
-  background-color: #d2b48c;
+  background: #d2b48c !important;
+  color: #22333b !important;
   font-family: caviar;
   border-radius: 12px;
   padding: 1.5rem;
-  color: #000;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
+  min-height: 120px;
 }
 
 .contact small {
@@ -337,8 +583,8 @@ body {
 .contact-mail-btn {
   display: inline-flex;
   align-items: center;
-  background: #d2b48c;
-  color: #22333b;
+  background: #d2b48c !important;
+  color: #22333b !important;
   border-radius: 12px;
   font-size: 1.5rem;
   font-family: doner, sans-serif;
@@ -368,19 +614,29 @@ body {
 
 .footer {
   grid-area: footer;
-  background-color: #22333b;
+  background: #d2b48c !important;
+  color: #22333b !important;
   border-radius: 12px;
   padding: 3rem;
   display: flex;
+  height: 100%;
+  min-height: 120px;
+  align-items: center;
+  justify-content: center;
 }
 
 .footer a {
-  margin: 0 auto;
-  color: #d2b48c;
+  margin: 0 0.5rem;
+  color: #22333b !important;
   text-decoration: none;
   font-size: .8rem;
   text-align: center;
   padding: .3rem;
+  transition: color 0.2s;
+}
+
+.footer a:hover {
+  color: #000 !important;
 }
 
 .feature-accordion {
@@ -518,10 +774,14 @@ body {
   .grid-container {
     grid-template-areas:
       "header"
-      "hero"
+      "websites-hero"
       "picture"
-      "feature-accordion"
-      "bio"
+      "website-project-ecommerce"
+      "website-project-portfolio"
+      "website-project-dashboard"
+      "website-project-blog"
+      "website-project-landing"
+      "websites-bio"
       "contact"
       "footer";
     grid-template-columns: 1fr;
@@ -533,14 +793,29 @@ body {
   .empty {
     display: none !important;
   }
-  .header, .hero, .feature-accordion, .bio, .contact, .footer, .picture {
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .nav-links a {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+  .header, .websites-hero, .websites-bio, .contact, .footer, .picture,
+  .website-project-ecommerce, .website-project-portfolio, .website-project-dashboard, .website-project-blog, .website-project-landing {
     border-radius: 10px;
     padding: 1rem;
     min-width: 0;
     width: 100%;
     margin: 0 auto;
   }
-  .hero img {
+  .websites-hero img {
     margin: 0 auto 16px auto;
     width: 60%;
     display: block;
@@ -565,9 +840,35 @@ body {
     max-width: none;
     max-height: none;
   }
-  .feature-accordion {
-    min-height: unset;
-    height: auto;
+  .website-project-ecommerce,
+  .website-project-portfolio,
+  .website-project-dashboard,
+  .website-project-blog,
+  .website-project-landing {
+    padding: 1rem;
+  }
+  .website-project-ecommerce h3,
+  .website-project-portfolio h3,
+  .website-project-dashboard h3,
+  .website-project-blog h3,
+  .website-project-landing h3 {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .website-project-ecommerce p,
+  .website-project-portfolio p,
+  .website-project-dashboard p,
+  .website-project-blog p,
+  .website-project-landing p {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .website-project-ecommerce img,
+  .website-project-portfolio img,
+  .website-project-dashboard img,
+  .website-project-blog img,
+  .website-project-landing img {
+    height: 120px;
   }
   .footer {
     flex-direction: column;
@@ -578,7 +879,7 @@ body {
     margin: 8px 0;
     font-size: 1rem;
   }
-  .bio {
+  .websites-bio {
     font-size: 1rem;
     padding: 1rem 0.5rem;
   }
@@ -588,13 +889,6 @@ body {
   }
   .logo {
     font-size: 1.5rem;
-  }
-  .accordion-title {
-    font-size: 1.2rem;
-    padding: 12px 8px;
-  }
-  .accordion-main-title {
-    font-size: 1.2rem;
   }
 }
 
@@ -643,6 +937,10 @@ body {
   .logo {
     font-size: 2.2rem;
   }
+  .nav-links a {
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+  }
   .hero {
     padding: 2.5rem;
     font-size: 0.9rem;
@@ -672,15 +970,20 @@ body {
   .footer a {
     font-size: 0.9rem;
   }
-  .feature-accordion {
-    padding: 1.5rem;
+  .main-content {
+    padding: 2rem;
   }
-  .accordion-title {
-    font-size: 2.2rem;
-    padding: 20px 18px;
-  }
-  .accordion-main-title {
+  .content-title {
     font-size: 2rem;
+  }
+  .project-ecommerce h3 {
+    font-size: 1.3rem;
+  }
+  .project-ecommerce p {
+    font-size: 1rem;
+  }
+  .project-ecommerce img {
+    height: 200px;
   }
 }
 
@@ -697,6 +1000,10 @@ body {
   }
   .logo {
     font-size: 2.6rem;
+  }
+  .nav-links a {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.2rem;
   }
   .hero {
     padding: 3.5rem;
@@ -727,14 +1034,44 @@ body {
   .footer a {
     font-size: 1.1rem;
   }
-  .feature-accordion {
-    padding: 2.5rem;
+  .main-content {
+    padding: 3rem;
   }
-  .accordion-title {
-    font-size: 2.6rem;
-    padding: 24px 22px;
-  }
-  .accordion-main-title {
+  .content-title {
     font-size: 2.4rem;
   }
+  .project-ecommerce h3 {
+    font-size: 1.5rem;
+  }
+  .project-ecommerce p {
+    font-size: 1.1rem;
+  }
+  .project-ecommerce img {
+    height: 200px;
+  }
 }
+
+.contact, .footer, .empty, .websites-bio, .websites-hero, .picture, .new-section {
+  background: #22333b !important;
+  color: #fff !important;
+  border-radius: 12px;
+}
+
+.new-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  font-size: 2rem;
+  font-family: doner, sans-serif;
+}
+
+.grid-container .contact {
+  background: #d2b48c !important;
+  color: #22333b !important;
+}
+.grid-container .footer {
+  background: #d2b48c !important;
+  color: #22333b !important;
+}
+
