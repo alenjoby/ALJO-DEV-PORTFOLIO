@@ -19,6 +19,26 @@
   padding: 0;
 }
 
+/* Hide scrollbars but keep functionality */
+html, body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* Hide scrollbars for specific elements */
+.feature-accordion-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.feature-accordion-inner {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
 body {
   font-family: caviar, sans-serif;
   background-color: #0a0908;
@@ -164,7 +184,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow:visible;
   height: 100%;
 }
 
@@ -251,9 +271,9 @@ body {
 }
 
 .picture img {
-  width: 100%;
+  width: 80%;
   height: 100%;
-  object-fit: cover;
+  object-fit:cover;
 }
 
 .empty {
