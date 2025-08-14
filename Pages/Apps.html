@@ -69,6 +69,32 @@
         <div class="app-image contain"><img src="../Images/PROJECTS/project2.png" alt="App Two" loading="lazy"/></div>
       </div>
     </div>
+
+    <!-- App 3 -->
+    <div class="app-3 app-card" tabindex="0" role="button" aria-controls="appModal"
+         data-title="App Three"
+         data-img="../Images/PROJECTS/project1.png"
+         data-desc="End‑to‑end prototype focused on performance, accessibility and delightful motion."
+         data-link="#"
+         data-tech="html,css,js">
+      <div class="app-summary">
+        <h3>App Three</h3>
+        <div class="app-image contain"><img src="../Images/PROJECTS/project1.png" alt="App Three" loading="lazy"/></div>
+      </div>
+    </div>
+
+    <!-- App 4 -->
+    <div class="app-4 app-card" tabindex="0" role="button" aria-controls="appModal"
+         data-title="App Four"
+         data-img="../Images/PROJECTS/project2.png"
+         data-desc="Showcases a shopping flow with clean UI and robust state handling."
+         data-link="#"
+         data-tech="html,css,js">
+      <div class="app-summary">
+        <h3>App Four</h3>
+        <div class="app-image contain"><img src="../Images/PROJECTS/project2.png" alt="App Four" loading="lazy"/></div>
+      </div>
+    </div>
   </div>
 
   <!-- App Modal (portrait) -->
@@ -108,8 +134,8 @@
     }
 
     function startSequentialAnimations(){
-      const sections = ['.header','.contact','.footer','.app-1','.app-2'];
-      sections.forEach((s,i)=> setTimeout(()=>{ const el=document.querySelector(s); if(el) el.classList.add('animate-in'); }, i*180));
+      const sections = ['.header','.contact','.footer','.app-1','.app-2','.app-3','.app-4'];
+      sections.forEach((s,i)=> setTimeout(()=>{ const el=document.querySelector(s); if(el) el.classList.add('animate-in'); }, i*160));
     }
   </script>
 
