@@ -31,7 +31,7 @@
       </h1>
     </div>
     <div class="picture">
-      <img src="/Images/pfpppp.png" alt="Profile Picture" id="profile-pic" />
+      <img src="/Images/Aljo.png" alt="Profile Picture" id="profile-pic" />
     </div>
     <div class="empty">
       <spline-viewer url="https://prod.spline.design/mlF55nKu27ISIgiu/scene.splinecode"></spline-viewer>
@@ -100,52 +100,65 @@
     </div>
   </div>
   <script>
-    document.querySelector('.grid-container').style.visibility = 'hidden';
+    const overlay = document.getElementById('loading-overlay');
+    const grid = document.querySelector('.grid-container');
     const logo = document.querySelector('#loading-overlay .logo');
     const picture = document.querySelector('#loading-overlay .picture');
-    const overlay = document.getElementById('loading-overlay');
 
-    // Set initial state
-    logo.style.opacity = '0';
-    logo.style.transform = 'translateY(-80px) scale(0.85)';
-    picture.style.opacity = '0';
-    picture.style.transform = 'translateY(80px) scale(0.85)';
+    // Default: hide content until splash logic resolves
+    grid.style.visibility = 'hidden';
 
-    window.addEventListener('DOMContentLoaded', function() {
-      // Animate in with bounce
-      setTimeout(() => {
-        logo.style.transition = 'all 0.8s cubic-bezier(.68,-0.55,.27,1.55)';
-        picture.style.transition = 'all 0.8s cubic-bezier(.68,-0.55,.27,1.55)';
-        logo.style.opacity = '1';
-        logo.style.transform = 'translateY(0) scale(1)';
-        picture.style.opacity = '1';
-        picture.style.transform = 'translateY(0) scale(1)';
-      }, 100);
+    const hasShownSplash = sessionStorage.getItem('splashShown') === 'true';
 
-      // Wait, then pop out with rotation, blur, and glow
-      setTimeout(() => {
-        logo.style.transition = 'all 0.32s cubic-bezier(.68,-0.55,.27,1.55)';
-        picture.style.transition = 'all 0.32s cubic-bezier(.68,-0.55,.27,1.55)';
-        logo.style.opacity = '0';
-        logo.style.transform = 'scale(1.5) rotate(-8deg)';
-        picture.style.opacity = '0';
-        picture.style.transform = 'scale(1.5) rotate(8deg)';
-        overlay.classList.add('popout');
-      }, 2800);
+    if (hasShownSplash) {
+      // Skip splash: reveal content immediately
+      if (overlay) overlay.style.display = 'none';
+      grid.style.visibility = 'visible';
+      startSequentialAnimations();
+    } else {
+      // First page load this session – run splash, then set flag
+      // Set initial state
+      logo.style.opacity = '0';
+      logo.style.transform = 'translateY(-80px) scale(0.85)';
+      picture.style.opacity = '0';
+      picture.style.transform = 'translateY(80px) scale(0.85)';
 
-      // Fade out overlay and show main content
-      setTimeout(() => {
-        overlay.style.opacity = '0';
+      window.addEventListener('DOMContentLoaded', function() {
+        // Animate in with bounce
         setTimeout(() => {
-          overlay.style.display = 'none';
-          document.querySelector('.grid-container').style.visibility = 'visible';
-          overlay.classList.remove('popout');
-          
-          // Start sequential animations
-          startSequentialAnimations();
-        }, 350);
-      }, 3200);
-    });
+          logo.style.transition = 'all 0.8s cubic-bezier(.68,-0.55,.27,1.55)';
+          picture.style.transition = 'all 0.8s cubic-bezier(.68,-0.55,.27,1.55)';
+          logo.style.opacity = '1';
+          logo.style.transform = 'translateY(0) scale(1)';
+          picture.style.opacity = '1';
+          picture.style.transform = 'translateY(0) scale(1)';
+        }, 100);
+
+        // Wait, then pop out with rotation, blur, and glow
+        setTimeout(() => {
+          logo.style.transition = 'all 0.32s cubic-bezier(.68,-0.55,.27,1.55)';
+          picture.style.transition = 'all 0.32s cubic-bezier(.68,-0.55,.27,1.55)';
+          logo.style.opacity = '0';
+          logo.style.transform = 'scale(1.5) rotate(-8deg)';
+          picture.style.opacity = '0';
+          picture.style.transform = 'scale(1.5) rotate(8deg)';
+          overlay.classList.add('popout');
+        }, 2800);
+
+        // Fade out overlay and show main content
+        setTimeout(() => {
+          overlay.style.opacity = '0';
+          setTimeout(() => {
+            overlay.style.display = 'none';
+            grid.style.visibility = 'visible';
+            overlay.classList.remove('popout');
+            sessionStorage.setItem('splashShown', 'true');
+            // Start sequential animations
+            startSequentialAnimations();
+          }, 350);
+        }, 3200);
+      });
+    }
 
     function startSequentialAnimations() {
       const sections = [
@@ -165,27 +178,20 @@
           const element = document.querySelector(section);
           if (element) {
             element.classList.add('animate-in');
-            
             // Add typing animation to header logo
             if (section === '.header') {
               const headerLogo = element.querySelector('.logo');
               if (headerLogo) {
                 headerLogo.classList.add('typing');
-                // Remove typing animation after 3 seconds
-                setTimeout(() => {
-                  headerLogo.classList.remove('typing');
-                }, 3000);
+                setTimeout(() => { headerLogo.classList.remove('typing'); }, 3000);
               }
             }
-            
             // Add blinking effect to linecomputer image after hero appears
             if (section === '.hero') {
               setTimeout(() => {
                 const linecomputerImg = element.querySelector('img');
-                if (linecomputerImg) {
-                  linecomputerImg.classList.add('blink');
-                }
-              }, 500); // Start blinking 500ms after hero appears
+                if (linecomputerImg) linecomputerImg.classList.add('blink');
+              }, 500);
             }
           }
         }, delays[index]);

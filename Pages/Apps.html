@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smartphone Apps - Alen Joby Portfolio</title>
+  <link rel="icon" type="image/png" href="../Images/icon.png" />
+  <link rel="stylesheet" href="../Styles/apps.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+  <div class="custom-cursor"></div>
+  <div id="loading-overlay">
+    <div class="logo">ALEN <span>JOBY</span></div>
+    <div class="picture">
+      <img src="../Images/Appu BW.png" alt="Profile Picture" id="profile-pic" />
+    </div>
+  </div>
+  <div class="grid-container">
+    <div class="header">
+      <div class="logo">ALEN <span>JOBY</span></div>
+      <nav class="nav-links">
+        <a href="../index.html">HOME</a>
+        <a href="Websites.html">WEBSITES</a>
+        <a href="Apps.html" class="active">SMARTPHONE APPS</a>
+        <a href="#">GRAPHIC DESIGNS</a>
+        <a href="#">GAMES</a>
+        <a href="#">CERTIFICATES</a>
+      </nav>
+    </div>
+
+    <div class="contact">
+      <small>Have an app idea?</small>
+      <a href="mailto:alenjoby955@gmail.com" class="contact-mail-btn">
+        Let's discuss
+        <img src="../Images/uprightarrow.png" alt="Mail" class="accordion-img-icon" style="vertical-align: middle; margin-left: 8px; width: 20px; height: 20px;" />
+      </a>
+    </div>
+
+    <div class="footer">
+      <a href="#"><i class="fab fa-github"></i> GITHUB</a>
+      <a href="#"><i class="fab fa-linkedin"></i> LINKEDIN</a>
+      <a href="#"><i class="fab fa-youtube"></i> YOUTUBE</a>
+    </div>
+
+    <!-- App 1 -->
+    <div class="app-1 app-card" tabindex="0" role="button" aria-controls="appModal"
+         data-title="App One"
+         data-img="../Images/PROJECTS/project1.png"
+         data-desc="A modern, responsive mobile application prototype demonstrating clean UI patterns, robust navigation, and smooth micro‑interactions."
+         data-link="#"
+         data-tech="html,css,js,gsap">
+      <div class="app-summary">
+        <h3>App One</h3>
+        <div class="app-image contain"><img src="../Images/PROJECTS/project1.png" alt="App One" loading="lazy"/></div>
+      </div>
+    </div>
+
+    <!-- App 2 -->
+    <div class="app-2 app-card" tabindex="0" role="button" aria-controls="appModal"
+         data-title="App Two"
+         data-img="../Images/PROJECTS/project2.png"
+         data-desc="A portrait‑first product demo featuring onboarding screens, content views, and a streamlined checkout flow."
+         data-link="#"
+         data-tech="html,css,js">
+      <div class="app-summary">
+        <h3>App Two</h3>
+        <div class="app-image contain"><img src="../Images/PROJECTS/project2.png" alt="App Two" loading="lazy"/></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- App Modal (portrait) -->
+  <div class="app-modal" id="appModal" aria-hidden="true">
+    <div class="app-modal__backdrop"></div>
+    <div class="app-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="appModalTitle">
+      <button class="app-modal__close" aria-label="Close">&times;</button>
+      <h3 id="appModalTitle" class="app-modal__title"></h3>
+      <div class="app-modal__image"><img alt="App image" loading="lazy"></div>
+      <p class="app-modal__desc"></p>
+      <div class="tech-title">Technologies Used:</div>
+      <div class="tech-logos"></div>
+      <a class="app-modal__link" href="#" target="_blank" rel="noopener noreferrer">WEBSITE</a>
+    </div>
+  </div>
+
+  <script>
+    // Splash shows only once per session
+    const overlay = document.getElementById('loading-overlay');
+    const grid = document.querySelector('.grid-container');
+    grid.style.visibility = 'hidden';
+    if (sessionStorage.getItem('splashShown') === 'true') {
+      if (overlay) overlay.style.display = 'none';
+      grid.style.visibility = 'visible';
+      startSequentialAnimations();
+    } else {
+      const logo = document.querySelector('#loading-overlay .logo');
+      const picture = document.querySelector('#loading-overlay .picture');
+      logo.style.opacity = '0'; picture.style.opacity = '0';
+      logo.style.transform = 'translateY(-80px) scale(0.85)';
+      picture.style.transform = 'translateY(80px) scale(0.85)';
+      window.addEventListener('DOMContentLoaded', function(){
+        setTimeout(()=>{ logo.style.transition='all .8s cubic-bezier(.68,-0.55,.27,1.55)'; picture.style.transition=logo.style.transition; logo.style.opacity='1'; picture.style.opacity='1'; logo.style.transform='translateY(0) scale(1)'; picture.style.transform='translateY(0) scale(1)'; },100);
+        setTimeout(()=>{ logo.style.opacity='0'; picture.style.opacity='0'; overlay.classList.add('popout'); }, 2200);
+        setTimeout(()=>{ overlay.style.display='none'; grid.style.visibility='visible'; overlay.classList.remove('popout'); sessionStorage.setItem('splashShown','true'); startSequentialAnimations(); }, 2550);
+      });
+    }
+
+    function startSequentialAnimations(){
+      const sections = ['.header','.contact','.footer','.app-1','.app-2'];
+      sections.forEach((s,i)=> setTimeout(()=>{ const el=document.querySelector(s); if(el) el.classList.add('animate-in'); }, i*180));
+    }
+  </script>
+
+  <script>
+    // Modal popup for apps (portrait)
+    document.addEventListener('DOMContentLoaded', function(){
+      const cards = document.querySelectorAll('.app-card');
+      const modal = document.getElementById('appModal');
+      const backdrop = modal.querySelector('.app-modal__backdrop');
+      const dialog = modal.querySelector('.app-modal__dialog');
+      const btnClose = modal.querySelector('.app-modal__close');
+      const titleEl = modal.querySelector('.app-modal__title');
+      const imgEl = modal.querySelector('.app-modal__image img');
+      const descEl = modal.querySelector('.app-modal__desc');
+      const linkEl = modal.querySelector('.app-modal__link');
+      const techWrap = modal.querySelector('.tech-logos');
+
+      const ICONS = {
+        html: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', title: 'HTML' },
+        css:  { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',  title: 'CSS' },
+        js:   { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', title: 'JavaScript' },
+        gsap: { url: '', title: 'GSAP' }
+      };
+
+      function renderTechs(str){
+        techWrap.innerHTML=''; if(!str) return; const slugs=str.split(',').map(s=>s.trim().toLowerCase());
+        slugs.forEach(slug=>{
+          if(slug==='gsap'){ const badge=document.createElement('span'); badge.className='tech-badge'; badge.textContent='GSAP'; techWrap.appendChild(badge); }
+          else if(ICONS[slug]){ const img=document.createElement('img'); img.src=ICONS[slug].url; img.alt=ICONS[slug].title; img.title=ICONS[slug].title; img.loading='lazy'; techWrap.appendChild(img); }
+        });
+      }
+
+      function openModal(data){
+        titleEl.textContent=data.title||'';
+        imgEl.src=data.img||''; imgEl.alt=data.title||'App image';
+        descEl.textContent=data.desc||'';
+        if(data.link && data.link!=='#'){ linkEl.href=data.link; linkEl.style.display='inline-flex'; } else { linkEl.style.display='none'; }
+        renderTechs(data.tech);
+        modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+        gsap.fromTo(backdrop,{opacity:0},{opacity:1,duration:.25,ease:'power2.out'});
+        gsap.fromTo(dialog,{y:30,opacity:0,scale:.96},{y:0,opacity:1,scale:1,duration:.35,ease:'power3.out'});
+      }
+      function closeModal(){
+        gsap.to(dialog,{y:20,opacity:0,scale:.97,duration:.25,ease:'power2.in'});
+        gsap.to(backdrop,{opacity:0,duration:.25,ease:'power2.in',onComplete:()=>{ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }});
+      }
+
+      cards.forEach(card=>{
+        const handler=(e)=>{ if(e.type==='keypress' && !(e.key==='Enter'||e.key===' ')) return; openModal({ title:card.dataset.title, img:card.dataset.img, desc:card.dataset.desc, link:card.dataset.link, tech:card.dataset.tech }); };
+        card.addEventListener('click',handler); card.addEventListener('keypress',handler);
+      });
+      btnClose.addEventListener('click',(e)=>{ e.stopPropagation(); closeModal(); });
+      backdrop.addEventListener('click', closeModal);
+      document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
+    });
+  </script>
+</body>
+</html>
+
+

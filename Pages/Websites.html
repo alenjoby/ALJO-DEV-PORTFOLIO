@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Websites - Alen Joby Portfolio</title>
   <link rel="icon" type="image/png" href="../Images/icon.png" />
-  <link rel="stylesheet" href="../styles/website.css" />
+  <link rel="stylesheet" href="../Styles/website.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.22/build/spline-viewer.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
 <body>
@@ -42,29 +41,48 @@
       <a href="#"><i class="fab fa-linkedin"></i> LINKEDIN</a>
       <a href="#"><i class="fab fa-youtube"></i> YOUTUBE</a>
     </div>
-    <div class="project-1 project-card" tabindex="0">
+    <div class="project-1 project-card" tabindex="0" role="button" aria-expanded="false" aria-controls="projectModal"
+         data-title="DYC ARCHITECTS"
+         data-img="../Images/project1.png"
+         data-desc="This architectural portfolio website showcases elegant designs and innovative projects. With a sleek, responsive layout that adapts across devices, it features a captivating hero section, interactive galleries, and a team showcase. Easy navigation and a user-friendly contact form ensure visitors can effortlessly explore and connect with the firm."
+         data-link="https://dycarchitects.vercel.app/"
+         data-tech="html,css,tailwind,js">
       <div class="project-summary">
         <h3>DYC ARCHITECTS</h3>
-        <img src="../Images/Projects/project1.png" alt="DYC Architects Website" style="width:100%;border-radius:8px;margin-bottom:0.5rem;object-fit:cover;max-height:140px;" />
-      </div>
-      <div class="project-details">
-        <button class="close-btn" aria-label="Close">&times;</button>
-        <p>This architectural portfolio website showcases elegant designs and innovative projects. With a sleek, responsive layout that adapts across devices, it features a captivating hero section, interactive galleries, and a team showcase. Easy navigation and a user-friendly contact form ensure visitors can effortlessly explore and connect with the firm.</p>
-        <div class="tech-title">Technologies Used:</div>
-        <div class="tech-logos">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" title="HTML">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" title="CSS">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" title="JavaScript">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="Tailwind CSS" title="Tailwind CSS">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" title="MongoDB">
+        <div class="project-image contain">
+          <img src="../Images/project1.png" alt="DYC Architects Website" loading="lazy" />
         </div>
-        <a href="https://www.dycarchitects.vercel.app" target="_blank" class="project-link">www.dycarchitects.vercel.app</a>
       </div>
     </div>
-    <div class="project-2">Project 2</div>
-    <div class="project-3">Project 3</div>
-    <div class="project-4">Project 4</div>
+    <div class="project-2 project-card" tabindex="0" role="button" aria-expanded="false" aria-controls="projectModal"
+         data-title="Fille le Hearts"
+         data-img="../Images/PROJECTS/project2.png"
+         data-desc="As part of my academic journey at Bath Spa University, I undertook a real‑world project under the Creative Industry Challenge — and I’m thrilled to share that I successfully delivered a full‑fledged digital solution for my client, Fille le Hearts, a premium brand specializing in Omani Halwa.<br><br>💼 Project Overview:<br>The objective was to approach a local business and support its digital transformation. In a world where online presence is everything, the client lacked a website — I saw this as the perfect opportunity to build something beautiful, functional, and impactful. 💻✨<br><br>🌐 What I delivered:<br>✅ A clean, elegant, and fully responsive website tailored to the brand identity<br>✅ Smooth and immersive GSAP animations for dynamic storytelling 🎞️<br>✅ Custom‑coded Home, About, Products & Contact pages<br>✅ Optimized UI/UX with modern accessibility standards<br>✅ Basic backend hooks for dynamic functionality ⚙️<br>✅ Deployment & testing of the live website 🌍"
+         data-link="https://fillehearts.vercel.app/"
+         data-tech="html,css,js,gsap">
+      <div class="project-summary">
+        <h3>Fille le Hearts</h3>
+        <div class="project-image contain">
+          <img src="../Images/PROJECTS/project2.png" alt="Fille le Hearts" loading="lazy" />
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Project Modal -->
+  <div class="project-modal" id="projectModal" aria-hidden="true">
+    <div class="project-modal__backdrop"></div>
+    <div class="project-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+      <button class="project-modal__close" aria-label="Close">&times;</button>
+      <h3 id="projectModalTitle" class="project-modal__title"></h3>
+      <div class="project-modal__image"><img alt="Project image" loading="lazy"></div>
+      <p class="project-modal__desc"></p>
+      <div class="tech-title">Technologies Used:</div>
+      <div class="tech-logos"></div>
+      <a class="project-modal__link" href="#" target="_blank" rel="noopener noreferrer">WEBSITE</a>
+    </div>
+  </div>
+
   <script>
     document.querySelector('.grid-container').style.visibility = 'hidden';
     const logo = document.querySelector('#loading-overlay .logo');
@@ -116,45 +134,19 @@
     function startSequentialAnimations() {
       const sections = [
         '.header',
-        '.project-1',
-        '.project-2',
-        '.project-3',
-        '.project-4',
-        '.project-5',
-        '.project-6',
         '.contact',
-        '.footer'
+        '.footer',
+        '.project-1',
+        '.project-2'
       ];
       
-      const delays = [0, 200, 400, 600, 800, 1000, 1200, 1400, 1600]; // 200ms between each section
+      const delays = [0, 200, 400, 600, 800]; // 200ms between each section
       
       sections.forEach((section, index) => {
         setTimeout(() => {
           const element = document.querySelector(section);
           if (element) {
             element.classList.add('animate-in');
-            
-            // Add typing animation to header logo
-            if (section === '.header') {
-              const headerLogo = element.querySelector('.logo');
-              if (headerLogo) {
-                headerLogo.classList.add('typing');
-                // Remove typing animation after 3 seconds
-                setTimeout(() => {
-                  headerLogo.classList.remove('typing');
-                }, 3000);
-              }
-            }
-            
-            // Add blinking effect to linecomputer image after hero appears
-            if (section === '.websites-hero') {
-              setTimeout(() => {
-                const linecomputerImg = element.querySelector('img');
-                if (linecomputerImg) {
-                  linecomputerImg.classList.add('blink');
-                }
-              }, 500); // Start blinking 500ms after hero appears
-            }
           }
         }, delays[index]);
       });
@@ -173,65 +165,90 @@
   </script>
   
   <script>
-    // Accordion functionality
-    document.addEventListener('DOMContentLoaded', () => {
-      const accordionItems = document.querySelectorAll('.accordion-item');
-      
-      accordionItems.forEach(item => {
-        const title = item.querySelector('.accordion-title');
-        
-        title.addEventListener('click', () => {
-          // Remove active class from all items
-          accordionItems.forEach(otherItem => {
-            otherItem.classList.remove('active');
-          });
-          
-          // Add active class to clicked item
-          item.classList.add('active');
-        });
-      });
-    });
-  </script>
-  <script>
-    // Expand/collapse for project-1 with GSAP card expansion
+    // Modal popup for projects (GSAP)
     document.addEventListener('DOMContentLoaded', function() {
-      var card = document.querySelector('.project-1.project-card');
-      var details = card.querySelector('.project-details');
-      var closeBtn = card.querySelector('.close-btn');
-      function expandCard() {
-        card.classList.add('expanded');
-        gsap.fromTo(card, {zIndex: 2, scale: 1, boxShadow: '0 2px 12px 2px #0004'}, {zIndex: 10, scale: 1.18, boxShadow: '0 12px 60px 12px #000c, 0 0 0 2px #d2b48c', duration: 0.4, ease: 'power3.out'});
-        gsap.fromTo(details, {y: 30, opacity: 0, maxHeight: 0}, {y: 0, opacity: 1, maxHeight: 800, duration: 0.4, delay: 0.1, ease: 'power3.out'});
+      const cards = document.querySelectorAll('.project-card');
+      const modal = document.getElementById('projectModal');
+      const backdrop = modal.querySelector('.project-modal__backdrop');
+      const dialog = modal.querySelector('.project-modal__dialog');
+      const btnClose = modal.querySelector('.project-modal__close');
+      const titleEl = modal.querySelector('.project-modal__title');
+      const imgEl = modal.querySelector('.project-modal__image img');
+      const descEl = modal.querySelector('.project-modal__desc');
+      const linkEl = modal.querySelector('.project-modal__link');
+      const techWrap = modal.querySelector('.tech-logos');
+
+      const ICONS = {
+        html: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', title: 'HTML' },
+        css: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', title: 'CSS' },
+        js: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', title: 'JavaScript' },
+        tailwind: { url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg', title: 'Tailwind CSS' },
+      };
+
+      function renderTechs(listStr) {
+        techWrap.innerHTML = '';
+        if (!listStr) return;
+        const slugs = listStr.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+        slugs.forEach(slug => {
+          if (slug === 'gsap') {
+            const badge = document.createElement('span');
+            badge.className = 'tech-badge';
+            badge.textContent = 'GSAP';
+            techWrap.appendChild(badge);
+          } else if (ICONS[slug]) {
+            const img = document.createElement('img');
+            img.src = ICONS[slug].url;
+            img.alt = ICONS[slug].title;
+            img.title = ICONS[slug].title;
+            img.loading = 'lazy';
+            techWrap.appendChild(img);
+          }
+        });
       }
-      function collapseCard() {
-        gsap.to(details, {y: 30, opacity: 0, maxHeight: 0, duration: 0.3, ease: 'power2.in', onComplete: function() {
-          card.classList.remove('expanded');
-          gsap.to(card, {zIndex: 2, scale: 1, boxShadow: '0 2px 12px 2px #0004', duration: 0.3, ease: 'power2.in', clearProps: 'zIndex,scale,boxShadow'});
+
+      function openModal(data) {
+        titleEl.textContent = data.title || '';
+        imgEl.src = data.img || '';
+        imgEl.alt = data.title || 'Project image';
+        descEl.innerHTML = data.desc || '';
+        if (data.link && data.link !== '#') {
+          linkEl.href = data.link;
+          linkEl.style.display = 'inline-flex';
+        } else {
+          linkEl.style.display = 'none';
+        }
+        renderTechs(data.tech);
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        gsap.fromTo(backdrop, {opacity: 0}, {opacity: 1, duration: 0.25, ease: 'power2.out'});
+        gsap.fromTo(dialog, {y: 30, opacity: 0, scale: 0.96}, {y: 0, opacity: 1, scale: 1, duration: 0.35, ease: 'power3.out'});
+      }
+      function closeModal() {
+        gsap.to(dialog, {y: 20, opacity: 0, scale: 0.97, duration: 0.25, ease: 'power2.in'});
+        gsap.to(backdrop, {opacity: 0, duration: 0.25, ease: 'power2.in', onComplete: () => {
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden', 'true');
         }});
       }
-      if(card) {
-        card.addEventListener('click', function(e) {
-          if(e.target.classList.contains('close-btn')) return;
-          if(!card.classList.contains('expanded')) {
-            expandCard();
-          }
-        });
-        card.addEventListener('keypress', function(e) {
-          if(e.key === 'Enter' || e.key === ' ') {
-            if(!card.classList.contains('expanded')) {
-              expandCard();
-            }
-          }
-        });
-        if(closeBtn) {
-          closeBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if(card.classList.contains('expanded')) {
-              collapseCard();
-            }
-          });
-        }
-      }
+
+      cards.forEach(card => {
+        const handler = (e) => {
+          if (e.type === 'keypress' && !(e.key === 'Enter' || e.key === ' ')) return;
+          const data = {
+            title: card.getAttribute('data-title'),
+            img: card.getAttribute('data-img'),
+            desc: card.getAttribute('data-desc'),
+            link: card.getAttribute('data-link'),
+            tech: card.getAttribute('data-tech')
+          };
+          openModal(data);
+        };
+        card.addEventListener('click', handler);
+        card.addEventListener('keypress', handler);
+      });
+      btnClose.addEventListener('click', (e) => { e.stopPropagation(); closeModal(); });
+      backdrop.addEventListener('click', closeModal);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
     });
   </script>
 </body>
