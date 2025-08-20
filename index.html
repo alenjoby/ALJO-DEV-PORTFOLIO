@@ -13,9 +13,12 @@
 <body>
   <div class="custom-cursor"></div>
   <div id="loading-overlay">
-    <div class="logo">ALEN <span>JOBY</span></div>
-    <div class="picture">
-      <img src="/Images/Appu BW.png" alt="Profile Picture" id="profile-pic" />
+    <div class="morphing-logo">
+      <div class="logo-simple">ALEN JOBY</div>
+      <div class="logo-final">
+        <span class="logo-main">ALEN</span>
+        <span class="logo-accent">JOBY</span>
+      </div>
     </div>
   </div>
   <div class="grid-container">
@@ -23,7 +26,7 @@
       <div class="logo">ALEN <span>JOBY</span></div>
     </div>
     <div class="hero">
-      <img src="/Images/linecomputer.png">
+      <img src="Images/linecomputer.png">
       <h1>
         Where Code Becomes Canvas<br />
         <em>Design, Data & Imagination</em><br />
@@ -31,7 +34,7 @@
       </h1>
     </div>
     <div class="picture">
-      <img src="/Images/Aljo.png" alt="Profile Picture" id="profile-pic" />
+      <img src="Images/Aljo.png" alt="Profile Picture" id="profile-pic" />
     </div>
     <div class="empty">
       <spline-viewer url="https://prod.spline.design/mlF55nKu27ISIgiu/scene.splinecode"></spline-viewer>
@@ -41,7 +44,7 @@
       <div class="feature-accordion-inner">
         <div class="accordion-item active">
           <div class="accordion-title">Websites
-            <a href="/Pages/Websites.html" class="accordion-link" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+            <a href="Pages/Websites.html" class="accordion-link" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
           </div>
           <div class="accordion-content">
             <img src="Images/project1.png" alt="Websites Image" />
@@ -49,7 +52,7 @@
         </div>
         <div class="accordion-item">
           <div class="accordion-title">Smartphone Apps
-            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+            <a href="Pages/Apps.html" class="accordion-link" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
           </div>
           <div class="accordion-content">
             <img src="Images/project1.png" alt="Smartphone Apps Image" />
@@ -57,7 +60,7 @@
         </div>
         <div class="accordion-item">
           <div class="accordion-title">Graphic Designs
-            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+            <a href="#" class="accordion-link" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
           </div>
           <div class="accordion-content">
             <img src="Images/project1.png" alt="Graphic Designs Image" />
@@ -65,7 +68,7 @@
         </div>
         <div class="accordion-item">
           <div class="accordion-title">Games
-            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+            <a href="#" class="accordion-link" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
           </div>
           <div class="accordion-content">
             <img src="Images/project1.png" alt="Games Image" />
@@ -73,7 +76,7 @@
         </div>
         <div class="accordion-item">
           <div class="accordion-title">Certificates
-            <a href="#" class="accordion-link" target="_blank" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
+            <a href="#" class="accordion-link" onclick="event.stopPropagation();"><img src="Images/uprightarrow.png" alt="Open" class="accordion-img-icon" /></a>
           </div>
           <div class="accordion-content">
             <img src="Images/project1.png" alt="Certificates Image" />
@@ -100,65 +103,47 @@
     </div>
   </div>
   <script>
+    // Loading animation logic - works on first load and refresh
+    document.querySelector('.grid-container').style.visibility = 'hidden';
+    const morphingLogo = document.querySelector('.morphing-logo');
     const overlay = document.getElementById('loading-overlay');
-    const grid = document.querySelector('.grid-container');
-    const logo = document.querySelector('#loading-overlay .logo');
-    const picture = document.querySelector('#loading-overlay .picture');
 
-    // Default: hide content until splash logic resolves
-    grid.style.visibility = 'hidden';
+    // Set initial state
+    morphingLogo.style.opacity = '0';
+    morphingLogo.style.transform = 'translateY(-80px) scale(0.85)';
 
-    const hasShownSplash = sessionStorage.getItem('splashShown') === 'true';
-
-    if (hasShownSplash) {
-      // Skip splash: reveal content immediately
-      if (overlay) overlay.style.display = 'none';
-      grid.style.visibility = 'visible';
-      startSequentialAnimations();
-    } else {
-      // First page load this session – run splash, then set flag
-      // Set initial state
-      logo.style.opacity = '0';
-      logo.style.transform = 'translateY(-80px) scale(0.85)';
-      picture.style.opacity = '0';
-      picture.style.transform = 'translateY(80px) scale(0.85)';
-
-      window.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('DOMContentLoaded', function() {
         // Animate in with bounce
         setTimeout(() => {
-          logo.style.transition = 'all 0.8s cubic-bezier(.68,-0.55,.27,1.55)';
-          picture.style.transition = 'all 0.8s cubic-bezier(.68,-0.55,.27,1.55)';
-          logo.style.opacity = '1';
-          logo.style.transform = 'translateY(0) scale(1)';
-          picture.style.opacity = '1';
-          picture.style.transform = 'translateY(0) scale(1)';
+            morphingLogo.style.transition = 'all 0.8s cubic-bezier(.68,-0.55,.27,1.55)';
+            morphingLogo.style.opacity = '1';
+            morphingLogo.style.transform = 'translateY(0) scale(1)';
         }, 100);
+
+        // Start morphing animation after initial entrance
+        setTimeout(() => {
+            morphingLogo.classList.add('morphing');
+        }, 1200);
 
         // Wait, then pop out with rotation, blur, and glow
         setTimeout(() => {
-          logo.style.transition = 'all 0.32s cubic-bezier(.68,-0.55,.27,1.55)';
-          picture.style.transition = 'all 0.32s cubic-bezier(.68,-0.55,.27,1.55)';
-          logo.style.opacity = '0';
-          logo.style.transform = 'scale(1.5) rotate(-8deg)';
-          picture.style.opacity = '0';
-          picture.style.transform = 'scale(1.5) rotate(8deg)';
-          overlay.classList.add('popout');
+            morphingLogo.style.transition = 'all 0.32s cubic-bezier(.68,-0.55,.27,1.55)';
+            morphingLogo.style.opacity = '0';
+            morphingLogo.style.transform = 'scale(1.5) rotate(-8deg)';
+            overlay.classList.add('popout');
         }, 2800);
 
         // Fade out overlay and show main content
         setTimeout(() => {
-          overlay.style.opacity = '0';
-          setTimeout(() => {
-            overlay.style.display = 'none';
-            grid.style.visibility = 'visible';
-            overlay.classList.remove('popout');
-            sessionStorage.setItem('splashShown', 'true');
-            // Start sequential animations
-            startSequentialAnimations();
-          }, 350);
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.querySelector('.grid-container').style.visibility = 'visible';
+                overlay.classList.remove('popout');
+                startSequentialAnimations();
+            }, 350);
         }, 3200);
-      });
-    }
+    });
 
     function startSequentialAnimations() {
       const sections = [
